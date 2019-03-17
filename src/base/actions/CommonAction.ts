@@ -10,6 +10,7 @@ export const fetchMovies = (): CommonAsyncActionCreator => async (
   dispatch,
   getState
 ) => {
+  console.log("hello");
   const movies: Movie[] = await apifetchMovies();
   dispatch(setMovies(movies));
 };
@@ -18,5 +19,5 @@ export const setMovies: CommonActionCreator = (movies: Movie[]) => ({
   payload: {
     movies
   },
-  type: CommonActionType.setMovieName
+  type: CommonActionType.setMovies
 });

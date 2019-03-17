@@ -1,7 +1,8 @@
 interface AppState {
-  request: MovieState;
+  movie: MovieState;
 }
 
 interface MovieState {
+  movies: Movie[];
   name: string;
 }

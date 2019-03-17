@@ -4,7 +4,8 @@ import { ThunkAction } from "redux-thunk";
 export enum CommonActionType {
   resetState,
   setMovieName,
-  setMovieImage
+  setMovieImage,
+  setMovies,
 }
 
 export interface ICommonAction extends Action<CommonActionType> {
