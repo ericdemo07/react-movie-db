@@ -5,6 +5,7 @@ import { Action, bindActionCreators, Dispatch } from "redux";
 import { fetchMovies } from "src/base/actions/CommonAction";
 import { CommonActionType } from "../../actions/Types";
 
+import { HeaderComponent } from "src/base/components/header/Header";
 import { MovieListingComponent } from "src/base/components/movies/MovieListingComponent";
 
 interface IStateProps {
@@ -27,6 +28,10 @@ class Movies extends Component<Props> {
     const { movies } = this.props;
     return (
       <Fragment>
+        <HeaderComponent
+          header="React Movie Database"
+          subHeader="Sample application fetching from OMDB"
+        />
         {movies.map((e, i) => (
           <div key={i}>{e.name}</div>
         ))}
