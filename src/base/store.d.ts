@@ -1,8 +1,9 @@
 interface AppState {
-  movie: MovieState;
+  movieState: MovieState;
 }
 
 interface MovieState {
-  movies: Movie[];
-  name: string;
+  movie: Movie;
+  loading: boolean;
+  searchKeyWord: string;
 }

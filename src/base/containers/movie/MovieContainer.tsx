@@ -2,56 +2,85 @@ import { Component, Fragment } from "react";
 import * as React from "react";
 import { connect } from "react-redux";
 import { Action, bindActionCreators, Dispatch } from "redux";
-import { fetchMovies } from "src/base/actions/CommonAction";
+import { fetchMovie, setSearchText } from "src/base/actions/CommonAction";
 import { CommonActionType } from "../../actions/Types";
 
 import { HeaderComponent } from "src/base/components/header/Header";
-import { MovieListingComponent } from "src/base/components/movies/MovieListingComponent";
+import { MovieComponent } from "src/base/components/movie/MovieComponent";
+import "./MovieContainer.css";
+
+import { Placeholder } from "semantic-ui-react";
 
 interface IStateProps {
-  movies: Movie[];
+  movie: Movie;
+  loading: boolean;
 }
 
 interface IDispatchProps {
-  fetchMovies: () => void;
+  fetchMovie: () => void;
+  setSearchText: (keyword: string) => void;
 }
 
 type Props = IStateProps & IDispatchProps;
 
 class MovieContainer extends Component<Props> {
   public componentDidMount() {
-    console.log("hello111");
-    this.props.fetchMovies();
+    this.props.fetchMovie();
+  }
+
+  public renderMovie() {
+    const { movie } = this.props;
+
+    return <MovieComponent movie={movie} />;
+  }
+
+  public renderPlaceHolder() {
+    return (
+      <Placeholder>
+        <Placeholder.Header image={true}>
+          <Placeholder.Line />
+          <Placeholder.Line />
+        </Placeholder.Header>
+        <Placeholder.Paragraph>
+          <Placeholder.Line />
+          <Placeholder.Line />
+          <Placeholder.Line />
+          <Placeholder.Line />
+        </Placeholder.Paragraph>
+      </Placeholder>
+    );
   }
 
   public render() {
-    const { movies } = this.props;
+    const { setSearchText, fetchMovie, loading } = this.props;
+
     return (
       <Fragment>
         <HeaderComponent
-          header="React Movie Database"
-          subHeader="Sample application fetching from OMDB"
+          header="React Redux Movie Database"
+          subHeader="Courtesy: The Open Movie Database"
+          setSearchText={setSearchText}
+          fetchMovie={fetchMovie}
         />
-        {movies.map((e, i) => (
-          <div key={i}>{e.name}</div>
-        ))}
-        <MovieListingComponent movies={movies} />
+        <div className="container">
+          {loading ? this.renderPlaceHolder() : this.renderMovie()}
+        </div>
       </Fragment>
     );
   }
 }
 
 const mapStateToProps = (state: AppState): IStateProps => {
-  console.log("state", state);
-  const { movies } = state.movie;
+  const { movie, loading } = state.movieState;
 
   return {
-    movies
+    movie,
+    loading
   };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch<Action<CommonActionType>>) =>
-  bindActionCreators({ fetchMovies }, dispatch);
+  bindActionCreators({ fetchMovie, setSearchText }, dispatch);
 
 export const MovieContainerWrapper = connect<IStateProps, {}, {}, {}>(
   mapStateToProps,

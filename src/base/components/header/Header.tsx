@@ -5,7 +5,9 @@ import { Header, Icon, Input, Segment } from "semantic-ui-react";
 export const HeaderComponent: SFC<{
   header: string;
   subHeader: string;
-}> = ({ header, subHeader }) => {
+  setSearchText: (keyword: string) => void;
+  fetchMovie: () => void;
+}> = ({ header, subHeader, setSearchText, fetchMovie }) => {
   return (
     <Fragment>
       <Segment>
@@ -18,8 +20,13 @@ export const HeaderComponent: SFC<{
         </Header>
         <Header floated="right">
           <Input icon={true} placeholder="Search...">
-            <input />
-            <Icon name="search" />
+            <input onChange={e => setSearchText(e.target.value)} />
+            <Icon
+              name="search"
+              link={true}
+              onClick={() => fetchMovie()}
+              bordered={true}
+            />
           </Input>
         </Header>
       </Segment>

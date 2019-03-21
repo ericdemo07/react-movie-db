@@ -1,8 +1,8 @@
 import { applyMiddleware, combineReducers, compose, createStore } from "redux";
 import thunkMiddleware from "redux-thunk";
-import { movie } from "./base/reducer/CommonReducer";
+import { movieState } from "./base/reducer/CommonReducer";
 
-const baseReducer = combineReducers({ movie });
+const baseReducer = combineReducers({ movieState });
 
 export const store = createStore(
   baseReducer,

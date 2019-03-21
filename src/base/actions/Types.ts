@@ -6,6 +6,9 @@ export enum CommonActionType {
   setMovieName,
   setMovieImage,
   setMovies,
+  setMovie,
+  setSearchText,
+  setLoading,
 }
 
 export interface ICommonAction extends Action<CommonActionType> {

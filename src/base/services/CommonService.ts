@@ -1,4 +1,11 @@
-export const apifetchMovies = () => {
-  const testMovie: Movie = { name: "Doom" };
-  return [testMovie, testMovie];
+export const apifetchMovies = async ({
+  searchKeyWord
+}: {
+  searchKeyWord: string;
+}): Promise<Movie> => {
+  return fetch(
+    `http://www.omdbapi.com/?apikey=&t=${searchKeyWord}`
+  ).then(response => {
+    return response.json();
+  });
 };

@@ -8,6 +8,9 @@
     ]
   },
   "rules": {
-    "no-console": false
+    "no-console": false,
+    "object-literal-sort-keys": false,
+    "jsx-no-lambda": false,
+    "no-shadowed-variable": false
   }
 }

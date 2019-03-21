@@ -1,23 +1,51 @@
 import { CommonActionType, ICommonAction } from "../actions/Types";
 
 const MOVIE_DEFAULT_STATE: MovieState = {
-  movies: [{ name: "" }],
-  name: ""
+  movie: {
+    Title: "",
+    Year: "",
+    Rated: "",
+    Released: "",
+    Runtime: "",
+    Genre: "",
+    Director: "",
+    Writer: "",
+    Actors: "",
+    Plot: "",
+    Language: "",
+    Country: "",
+    Awards: "",
+    Poster: "",
+    Ratings: [{ Source: "", Value: "" }],
+    Metascore: "",
+    imdbRating: "",
+    imdbVotes: "",
+    imdbID: "",
+    Type: "",
+    DVD: "",
+    BoxOffice: "",
+    Production: "",
+    Website: "",
+    Response: ""
+  },
+  loading: false,
+  searchKeyWord: "The"
 };
 
-export const movie = (
+export const movieState = (
   state = MOVIE_DEFAULT_STATE,
   action: ICommonAction
 ): MovieState => {
-  console.log(action, state);
 
   switch (action.type) {
     case CommonActionType.resetState:
       return MOVIE_DEFAULT_STATE;
-    case CommonActionType.setMovies:
-      return { ...state, movies: action.payload.movies };
-    case CommonActionType.setMovieName:
-      return { ...state, name: action.payload.name };
+    case CommonActionType.setMovie:
+      return { ...state, movie: action.payload.movie };
+    case CommonActionType.setSearchText:
+      return { ...state, searchKeyWord: action.payload.keyword };
+    case CommonActionType.setLoading:
+      return { ...state, loading: action.payload.loading };
     default:
       return state;
   }
