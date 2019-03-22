@@ -1,12 +1,14 @@
 import { Fragment, SFC } from "react";
 import * as React from "react";
-import { Grid, Header, Image, List, Segment, Table } from "semantic-ui-react";
+import { Image, Segment } from "semantic-ui-react";
+import { CreditsComponent } from "./CreditsComponent";
+import { ExtrasComponent } from "./ExtrasComponent";
+import { RatingsComponent } from "./RatingsComponent";
 
 export const MovieComponent: SFC<{
   movie: Movie;
 }> = ({ movie }) => {
   const imdbLink = `https://m.imdb.com/title/${movie.imdbID}`;
-  const { Ratings } = movie;
   return (
     <Fragment>
       <Segment.Group>
@@ -18,53 +20,12 @@ export const MovieComponent: SFC<{
           <br />
           {movie.Plot}
           <br />
-          <Table basic="very" celled={true} collapsing={true}>
-            <Table.Body>
-              <Table.Row>
-                <Table.Cell>
-                  <Header as="h4">
-                    <Header.Content>Director</Header.Content>
-                  </Header>
-                </Table.Cell>
-                <Table.Cell>{movie.Director}</Table.Cell>
-              </Table.Row>
-              <Table.Row>
-                <Table.Cell>
-                  <Header as="h4">
-                    <Header.Content>Writer</Header.Content>
-                  </Header>
-                </Table.Cell>
-                <Table.Cell>{movie.Writer}</Table.Cell>
-              </Table.Row>
-              <Table.Row>
-                <Table.Cell>
-                  <Header as="h4">
-                    <Header.Content>Actors</Header.Content>
-                  </Header>
-                </Table.Cell>
-                <Table.Cell>{movie.Actors}</Table.Cell>
-              </Table.Row>
-            </Table.Body>
-          </Table>
+          <CreditsComponent movie={movie} />
           <br />
-          <Grid columns={2}>
-            {Ratings.map(rating => (
-              <Grid.Row key={rating.Source}>
-                <Grid.Column>{rating.Source}</Grid.Column>
-                {rating.Value}
-              </Grid.Row>
-            ))}
-          </Grid>
+          <RatingsComponent Ratings={movie.Ratings} />
         </Segment>
         <Segment>
-          <List horizontal={true} divided={true} relaxed="very">
-            <List.Item>{movie.Released}</List.Item>
-            <List.Item>{movie.Runtime}</List.Item>
-            <List.Item>{movie.Genre} </List.Item>
-            <List.Item>{movie.Production} </List.Item>
-            <List.Item>{movie.Language} </List.Item>
-            <List.Item>{movie.Country} </List.Item>
-          </List>
+          <ExtrasComponent movie={movie} />
         </Segment>
         <Segment>{movie.Awards}</Segment>
       </Segment.Group>
